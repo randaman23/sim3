@@ -1,7 +1,7 @@
 drop table if exists helousers;
 
 create table helousers
-(id serial primary key,
+(user_id serial primary key,
 username varchar(190),
 password varchar(180))
 

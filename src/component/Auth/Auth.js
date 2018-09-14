@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios'
 
 export default class Auth extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class Auth extends Component {
     };
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.registerUser = this.registerUser.bind(this)
   }
 
   handleUsername(e) {
@@ -18,6 +20,15 @@ export default class Auth extends Component {
   handlePassword(e) {
     this.setState({ password: e.target.value });
   }
+  registerUser(){
+      axios.post("/api/register", {username: this.state.username, password: this.state.password})
+      .then(res => this.setState({username: res.data, password: res.data}))
+  }
+
+  loginUser(){
+      axios.post("/api/login", {username: this.state.username, password: this.state.password})
+      .then(res => this.setState({username: res.data, password: res.data}))
+  }
 
   render() {
     console.log(this.state);
@@ -25,9 +36,9 @@ export default class Auth extends Component {
       <div>
         <h1>Auth</h1>
         <input onChange={this.handleUsername} type="text" />
-        <button>Login</button>
+        <button onClick={this.loginUser}>Login</button>
         <input onChange={this.handlePassword} type="text" />
-        <button>Register</button>
+        <button onClick={this.registerUser}>Register</button>
       </div>
     );
   }
